@@ -1,6 +1,6 @@
 import { Controller,Get, Param, Post, Body, Delete, Query } from '@nestjs/common';
 import { CoursesService } from './courses.service';
-
+import { CreateCourseDto } from './create-course.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -22,5 +22,11 @@ export class CoursesController {
     async deleteCourse(@Query() query) {
         const courses = await this.coursesService.deleteCourse(query.courseId);
         return courses;
+    }
+
+    @Post()
+    async addCourse(@Body() createCourseDto: CreateCourseDto) {
+        const course = await this.coursesService.addCourse(createCourseDto);
+        return course;
     }
 }
